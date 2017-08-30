@@ -4,4 +4,8 @@
 node_modules/
 platforms/
 plugins/
+<<<<<<< HEAD
 *.log
+=======
+mongodb/data/**
+>>>>>>> 9919d80f79f2bc89b0eb9cbb068d146ebb96cc85
