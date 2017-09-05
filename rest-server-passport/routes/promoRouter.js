@@ -16,7 +16,7 @@ promoRouter.route('/')
     });
 })
 
-.post(Verify.verifyAdmin, function (req, res, next) {
+.post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
     Promotions.create(req.body, function (err, promotion) {
         if (err) throw err;
         console.log('Promotion created!');
@@ -29,7 +29,7 @@ promoRouter.route('/')
     });
 })
 
-.delete(Verify.verifyAdmin, function (req, res, next) {
+.delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
     Promotions.remove({}, function (err, resp) {
         if (err) throw err;
         res.json(resp);
@@ -44,7 +44,7 @@ promoRouter.route('/:promotionId')
     });
 })
 
-.put(Verify.verifyAdmin, function (req, res, next) {
+.put(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
     Promotions.findByIdAndUpdate(req.params.promotionId, {
         $set: req.body
     }, {
@@ -55,7 +55,7 @@ promoRouter.route('/:promotionId')
     });
 })
 
-.delete(Verify.verifyAdmin, function (req, res, next) {
+.delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
     Promotions.findByIdAndRemove(req.params.promotionId, function (err, resp) {
         if (err) throw err;
         res.json(resp);
