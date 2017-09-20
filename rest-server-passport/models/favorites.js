@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var Dishes = require('../models/dishes');
 var Schema = mongoose.Schema;
 
 var favoriteSchema = new Schema({
@@ -6,10 +7,7 @@ var favoriteSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    dishes: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Dish'
-    }
+    dishes:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Dish' }]
 }, {
     timestamps: true
 });
