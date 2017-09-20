@@ -5,9 +5,6 @@
   "options": {
     "validateUpsert": true
   },
-  "mixins": {
-    "TimeStamp": true
-  },
   "properties": {
     "Rating": {
       "type": "number",
@@ -19,17 +16,21 @@
       "required": true
     }
   },
+
+  "mixins": {
+    "TimeStamp": true
+  },
   "validations": [],
   "relations": {
-    "customer": {
-      "type": "belongsTo",
-      "model": "Customer",
-      "foreignKey": "none"
-    },
     "dishes": {
       "type": "belongsTo",
       "model": "dishes",
-      "foreignKey": "none"
+      "foreignKey": "dishesId"
+    },
+    "customer": {
+      "type": "belongsTo",
+      "model": "Customer",
+      "foreignKey": "customerId"
     }
   },
   "acls": [
