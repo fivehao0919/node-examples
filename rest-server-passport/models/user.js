@@ -8,14 +8,14 @@ var User = new Schema({
     OauthId: String,
     OauthToken: String,
     firstname: {
-      type: String,
-      default: ''
+        type: String,
+        default: ''
     },
     lastname: {
-      type: String,
-      default: ''
+        type: String,
+        default: ''
     },
-    admin:   {
+    admin: {
         type: Boolean,
         default: false
     }
