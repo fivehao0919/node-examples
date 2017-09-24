@@ -41,12 +41,9 @@ favoriteRouter.route('/')
                         });
                     });
                 } else {
-                    for (x in favorite.dishes)
-                    {
-                        if (favorite.dishes[x] == dishId) {
-                            res.json('dish already in!');
+                    if (favorite.dishes.indexOf(dishId) !== -1) {
+                        res.json('dish already in!');
                             return;
-                        }
                     }
                     favorite.dishes.push(dishId);
                     favorite.save(function (err, favorite) {
@@ -75,17 +72,20 @@ favoriteRouter.route('/')
 
 favoriteRouter.route('/:dishObjectId')
 .delete(Verify.verifyOrdinaryUser, function (req, res, next) {
-    Favorites.findOne({"postedBy": req.decoded._doc._id}, function (err, favorite) {
-        for (x in favorite.dishes) {
-            if (favorite.dishes[x] == req.params.dishObjectId) {
-                favorite.dishes.splice(x,1);
-            }
+    Favorites.findOneAndUpdate({
+        'postedBy': req.decoded._doc._id
+    }, {
+        $pull: {
+            dishes: req.params.dishObjectId
         }
-        favorite.save(function (err, resp) {
-            if (err) throw err;
-            res.json(resp);
+    }, function(err, favorite) {
+        if (err) throw err;
+        Favorites.findOne({
+            'postedBy': req.decoded._doc._id
+        }, function(err, favorite) {
+            res.json(favorite);
         });
-    });
+    })
 });
-
+    
 module.exports = favoriteRouter;
